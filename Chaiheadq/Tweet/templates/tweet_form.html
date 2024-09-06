@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}
+Chai aur Tweet
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6">
+            <!-- Form Heading -->
+            <h1 class="text-center mb-4">
+                {% if form.instance.pk %}
+                Edit Tweet
+                {% else %}
+                Create Tweet
+                {% endif %}
+            </h1>
+
+            <!-- Form Card -->
+            <div class="card shadow-sm rounded">
+                <div class="card-body">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <div class="text-center mt-4">
+                            <button class="btn btn-warning btn-lg" type="submit">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Back to Home Page Link -->
+            <div class="text-center mt-3">
+                <a href="{% url 'tweet-list' %}" class="btn btn-secondary">Back to Home Page</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

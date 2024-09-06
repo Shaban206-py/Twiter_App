@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}
+Chai aur Tweet
+{% endblock %}
+
+{% block content %}
+<h1 class="text-center mt-4 mb-4">Welcome to Twitter HomePage</h1>
+
+<div class="text-center mb-4">
+    <a class="btn btn-primary btn-lg" href="{% url 'tweet-create' %}">Create a Tweet</a>
+</div>
+
+<div class="container">
+    <div class="row">
+        {% for tweet in tweets %}
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm">
+                {% if tweet.photo %}
+                <img src="{{ tweet.photo.url }}" class="card-img-top" alt="Tweet photo">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ tweet.user.username }}</h5>
+                    <p class="card-text">{{ tweet.text }}</p>
+                    {% if tweet.user == user %}
+                    <div class="d-flex justify-content-between">
+                        <a href="{% url 'tweet-edit' tweet.id %}" class="btn btn-warning">Edit</a>
+                        <a href="{% url 'tweet-delete' tweet.id %}" class="btn btn-danger">Delete</a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
